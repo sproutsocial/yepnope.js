@@ -118,7 +118,7 @@ var docElement            = doc.documentElement,
     // or immediately callback if we know there
     // was previously a timeout error
     readFirstScript();
-    err ? script.onload() : firstScript.parentNode.insertBefore( script, firstScript );
+    err ? script.onload() : fdoc.body.appendChild( script );
   }
 
   // Takes a preloaded css obj (changes in different browsers) and injects it into the head
@@ -144,7 +144,7 @@ var docElement            = doc.documentElement,
 
     if ( ! err ) {
       readFirstScript();
-      firstScript.parentNode.insertBefore( link, firstScript );
+      doc.getElementsByTagName('head')[0].appendChild( link );
       sTimeout(cb, 0);
     }
   }
@@ -556,7 +556,7 @@ var docElement            = doc.documentElement,
   };
 
   // Default error timeout to 10sec - modify to alter
-  yepnope['errorTimeout'] = 1e4;
+  yepnope['errorTimeout'] = 5e4;
 
   // Webreflection readystate hack
   // safe for jQuery 1.4+ ( i.e. don't use yepnope with jQuery 1.3.2 )
